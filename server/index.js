@@ -3,12 +3,10 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+
 const io = new Server(server, {
   cors: {
-    origin: ["https://webrtc-red.vercel.app"],
-    methods:["POST","GET"],
-    credintials: true
-
+    origin: "http://localhost:5173"
   }
 });
 

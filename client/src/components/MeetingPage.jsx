@@ -24,7 +24,7 @@ export function MeetingPage() {
     const roomId = params.roomId;
 
     useEffect(() => {
-      const s = socketIO.connect("http://localhost:3001");
+      const s = socketIO.connect("https://webrtc-api-olive.vercel.app/");
       s.on("connect", () => {
         setSocket(s);
         s.emit("join", {
@@ -39,7 +39,7 @@ export function MeetingPage() {
             setVideoStream(stream);
           });
 
-        s.on("localDescription", async ({ description }) => {
+        s.on("localDescriptio", async ({ description }) => {
           // Receiving video -
           console.log({ description });
           pc.setRemoteDescription(description);
@@ -71,13 +71,11 @@ export function MeetingPage() {
 
             pc.onicecandidate = ({ candidate }) => {
               s.emit("iceCandidateReply", { candidate });
-            };
-
-         
+            };         
             //s.emit("remoteDescription", { description: pc.localDescription });
           });
       });
-    }, []);
+    }, );
 
     if (!videoStream) {
         return <div>
